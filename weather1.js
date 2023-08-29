@@ -11,16 +11,16 @@ async function searchHandler() {
   if (isOnline) {
     if (checkLocalStorage(storedDataKey)) {
       console.log("Data Accessed from Local Storage");
-      localDataDisplay(value); //
+      localDataDisplay(storedDataKey); //
       showHistory(storedDataKey);
     } else {
       console.log("Data Accessed from Internet");
-      await weatherApi(value);
+      await weatherApi(storedDataKey);
     }
   } else {
     if (checkLocalStorage(storedDataKey)) {
       console.log("Data Accessed from Local Storage (Offline)");
-      localDataDisplay(value); // Display history data for the city "New York"
+      localDataDisplay(storedDataKey); // Display history data for the city "New York"
     } else {
       console.log("No Internet Connection");
       alert("You are offline. Local data not found.");
@@ -171,8 +171,8 @@ const getHistoryImage = (description) => {
 };
 
 // Function to save data to local storage
-const saveToLocalStorage = (key, value) => {
-  localStorage.setItem(key, JSON.stringify(value));
+const saveToLocalStorage = (key, storedDataKey) => {
+  localStorage.setItem(key, JSON.stringify(storedDataKey));
 };
 
 // Function to retrieve data from local storage
@@ -259,7 +259,6 @@ const localDataDisplay = (city) => {
     document.querySelector("#humidity").innerHTML = latestData.humidity + "%";
     document.querySelector("#wind-speed").innerHTML = latestData.wind + "km/h";
     document.querySelector("#pressure").innerHTML = latestData.pressure + "hPa";
-    document.querySelector(".humidity").innerHTML = latestData.humidity + "%";
 
     let historyDataHTML = "<ul>";
     historyDataHTML += "</ul>";
